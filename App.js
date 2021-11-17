@@ -6,16 +6,32 @@
  * @flow strict-local
  */
 
-import React from 'react';
 import type {Node} from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {NavigationContainer} from "@react-navigation/native";
+import RootStackScreen from "./screens/root-stack-screen/pages/RootStackScreen";
+import LoaderScreen from "./screens/root-stack-screen/root-stacks/loader-screen/pages/LoaderScreen";
 
 const App: () => Node = () => {
 
-  return (
-      <View>
-      </View>
-  );
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 2500);
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, []);
+
+    return (
+        isLoading ? <LoaderScreen/> : (
+            <NavigationContainer>
+                <RootStackScreen/>
+            </NavigationContainer>
+        )
+    );
 };
 
 export default App;
