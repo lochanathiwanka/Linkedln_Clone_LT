@@ -8,10 +8,10 @@ const RootStack = createStackNavigator();
 const RootStackScreen = () => {
     return (
         <RootStack.Navigator
-            headerMode="none"
             screenOptions={{
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-        }}>
+                headerShown: false,
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+            }}>
             <RootStack.Screen name="SignInScreen" component={SignInScreen}/>
             <RootStack.Screen name="SignUpScreen" component={SignUpScreen}/>
         </RootStack.Navigator>
