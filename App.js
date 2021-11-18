@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-
+import 'react-native-gesture-handler';
 import type {Node} from 'react';
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from "@react-navigation/native";
