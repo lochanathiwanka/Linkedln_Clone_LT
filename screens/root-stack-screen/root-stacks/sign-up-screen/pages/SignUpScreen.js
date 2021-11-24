@@ -209,7 +209,7 @@ const SignUpScreen = ({navigation}) => {
                         marginLeft: 15
                     }}>
                         <Text style={{fontSize: 18, fontWeight: '600'}}>or</Text>
-                        <Text onPress={() => navigation.navigate('SignInScreen')}
+                        <Text onPress={() => navigation.reset({index: 0, routes: [{name: 'SignInScreen'}]})}
                               style={{fontSize: 18, fontWeight: '600', color: '#0e76a8'}}>sign in</Text>
                     </View>
                 </View>
