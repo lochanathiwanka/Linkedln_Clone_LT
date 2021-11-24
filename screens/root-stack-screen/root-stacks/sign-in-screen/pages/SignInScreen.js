@@ -175,7 +175,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.root}>
                 <View style={styles.container1}>
                     <Image style={styles.logo} source={require('../../../../../assets/images/linkedln-logo.png')}/>
-                    <Text style={styles.joinNow} onPress={() => navigation.navigate('SignUpScreen')}>Join now</Text>
+                    <Text style={styles.joinNow} onPress={() => navigation.reset({index: 0, routes: [{name: 'SignUpScreen'}]})}>Join now</Text>
                 </View>
                 <View style={styles.container2}>
                     <Text style={styles.signIn}>Sign in</Text>
