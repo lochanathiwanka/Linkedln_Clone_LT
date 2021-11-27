@@ -1,10 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {TextInput} from "react-native-paper";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 import {Checkbox} from "native-base";
 import {GoogleSignin} from "@react-native-google-signin/google-signin";
-import auth from "@react-native-firebase/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {setIsError, signIn, signInWithGoogle} from "../redux/signInAction";
+import {AlertComp} from "../../../../../components/alert-comp/AlertComp";
 
 const {width, height} = Dimensions.get('window');
 
@@ -127,6 +129,22 @@ const SignInScreen = ({navigation}) => {
     const [isShowPassword, setShowPassword] = useState(false);
     const passwordRef = useRef(null);
 
+    // dispatcher
+    const dispatch = useDispatch();
+
+    // selector
+    const errorMessage = useSelector(state => state.signInReducer.errorMessage);
+    const isError = useSelector(state => state.signInReducer.isError);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            dispatch(setIsError(false));
+        }, 5000);
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [isError]);
+
     const emailHandler = (value) => {
         setEmail(value);
     }
@@ -141,33 +159,11 @@ const SignInScreen = ({navigation}) => {
     }
 
     const continueHandler = () => {
-        auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(() => {
-                alert('User signed in!');
-            })
-            .catch(error => {
-                if (error.code === 'auth/user-not-found') {
-                    alert('User not found!');
-                }
-
-                if (error.code === 'auth/wrong-password') {
-                    alert('password is not matched!');
-                }
-            });
+        dispatch(signIn({email: email, password: password}));
     }
 
     async function onGoogleButtonPress() {
-        // Get the users ID token
-        const {idToken} = await GoogleSignin.signIn();
-
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-        // Sign-in the user with the credential
-        return auth().signInWithCredential(googleCredential).then((user) => {
-            console.log(user);
-        });
+        dispatch(signInWithGoogle({email: email, password: password}));
     }
 
     return (
@@ -225,6 +221,13 @@ const SignInScreen = ({navigation}) => {
                         <Text style={styles.signInButtonText}>Sign in with Apple</Text>
                     </TouchableOpacity>
                 </View>
+                {isError && (
+                    <View style={{position: 'absolute', flex: 1, justifyContent: 'center', width: width, height: height}}>
+                        <NativeBaseProvider>
+                            <AlertComp title="Sign in failed!" message={errorMessage} status="error"/>
+                        </NativeBaseProvider>
+                    </View>
+                )}
             </View>
         </ScrollView>
     );
