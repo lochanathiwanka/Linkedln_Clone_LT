@@ -1,6 +1,6 @@
 import {call, put, takeLatest} from "@redux-saga/core/effects";
-import {SET_IS_ERROR, SIGN_IN, SIGN_IN_WITH_GOOGLE} from "./signInActionType";
-import {setIsErrorTrigger, signInFailure, signInSuccess} from "./signInAction";
+import {ADD_USER, REMOVE_USER, SET_IS_ERROR, SIGN_IN, SIGN_IN_WITH_GOOGLE} from "./signInActionType";
+import {addUserTrigger, removeUserTrigger, setIsErrorTrigger, signInFailure, signInSuccess} from "./signInAction";
 import {GoogleSignin} from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -45,6 +45,7 @@ function* signInCaller(action) {
             uid: user.user.uid,
             name: user.user.displayName,
             email: user.user.email,
+            photoURL: user.user.photoURL
         }
 
         if (user) {
@@ -66,6 +67,7 @@ function* signInWithGoogleCaller() {
             uid: user.user.uid,
             name: user.user.displayName,
             email: user.user.email,
+            photoURL: user.user.photoURL
         }
 
         if (user) {
@@ -90,8 +92,18 @@ function* setIsErrorCaller(action) {
     yield put(setIsErrorTrigger(action.isError));
 }
 
+function* addUserCaller(action) {
+    yield put(addUserTrigger(action.user));
+}
+
+function* removeUserCaller() {
+    yield put(removeUserTrigger());
+}
+
 export default function* signInSaga() {
     yield takeLatest(SIGN_IN, signInCaller);
     yield takeLatest(SIGN_IN_WITH_GOOGLE, signInWithGoogleCaller);
     yield takeLatest(SET_IS_ERROR, setIsErrorCaller);
+    yield takeLatest(ADD_USER, addUserCaller);
+    yield takeLatest(REMOVE_USER, removeUserCaller);
 }
