@@ -1,4 +1,8 @@
 import {
+    ADD_USER,
+    ADD_USER_TRIGGER,
+    REMOVE_USER,
+    REMOVE_USER_TRIGGER,
     SET_IS_ERROR,
     SET_IS_ERROR_TRIGGER,
     SIGN_IN,
@@ -49,3 +53,30 @@ export function setIsErrorTrigger(isError) {
         isError
     }
 }
+
+export function addUser(user) {
+    return {
+        type: ADD_USER,
+        user
+    }
+}
+
+export function addUserTrigger(user) {
+    return {
+        type: ADD_USER_TRIGGER,
+        user
+    }
+}
+
+export function removeUser() {
+    return {
+        type: REMOVE_USER
+    }
+}
+
+export function removeUserTrigger() {
+    return {
+        type: REMOVE_USER_TRIGGER
+    }
+}
+
