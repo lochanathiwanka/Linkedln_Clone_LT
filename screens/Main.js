@@ -2,13 +2,25 @@ import LoaderScreen from "./root-stack-screen/root-stacks/loader-screen/pages/Lo
 import {NavigationContainer} from "@react-navigation/native";
 import RootStackScreen from "./root-stack-screen/pages/RootStackScreen";
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useDispatch, useSelector} from "react-redux";
+import {addUser} from "./root-stack-screen/root-stacks/sign-in-screen/redux/signInAction";
+import DrawerScreen from "./drawer-screen/pages/DrawerScreen";
 
 const Main = () => {
     const [isLoading, setIsLoading] = useState(true);
 
+    // dispatcher
+    const dispatch = useDispatch();
+
     // selector
     const user = useSelector(state => state.signInReducer.user);
+
+    useEffect(() => {
+        getData().then((u) => {
+            dispatch(addUser(u));
+        });
+    }, []);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -19,10 +31,20 @@ const Main = () => {
         }
     }, []);
 
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('user')
+            return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch(e) {
+            console.log(e);
+            // error reading value
+        }
+    }
+
     return (
         isLoading ? <LoaderScreen/> : (
             <NavigationContainer>
-                <RootStackScreen/>
+                {user ? <DrawerScreen/> : <RootStackScreen/>}
             </NavigationContainer>
         )
     );
