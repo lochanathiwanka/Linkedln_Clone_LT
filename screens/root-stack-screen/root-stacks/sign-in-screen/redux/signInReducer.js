@@ -1,5 +1,11 @@
 // initial state
-import {SET_IS_ERROR_TRIGGER, SIGN_IN_FAILURE, SIGN_IN_SUCCESS} from "./signInActionType";
+import {
+    ADD_USER_TRIGGER,
+    REMOVE_USER_TRIGGER,
+    SET_IS_ERROR_TRIGGER,
+    SIGN_IN_FAILURE,
+    SIGN_IN_SUCCESS
+} from "./signInActionType";
 
 const initialState = {
     user: null,
@@ -28,6 +34,16 @@ export default function signInReducer(state = initialState, actions) {
             return {
                 ...state,
                 isError: actions.isError
+            };
+        case ADD_USER_TRIGGER:
+            return {
+                ...state,
+                user: actions.user
+            };
+        case REMOVE_USER_TRIGGER:
+            return {
+                ...state,
+                user: null
             };
         default:
             return initialState;
