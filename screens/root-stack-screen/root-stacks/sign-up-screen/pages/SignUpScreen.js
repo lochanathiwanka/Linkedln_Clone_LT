@@ -3,6 +3,8 @@ import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View}
 import {TextInput} from "react-native-paper";
 import {GoogleSignin} from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
+import {useDispatch} from "react-redux";
+import {signUp} from "../redux/signUpAction";
 
 const {width, height} = Dimensions.get('window');
 
@@ -131,6 +133,9 @@ const SignUpScreen = ({navigation}) => {
     const [continueButtonTitle, setContinueButtonTitle] = useState('Continue');
     const [count, setCount] = useState(0);
 
+    // dispatcher
+    const dispatch = useDispatch();
+
     const emailHandler = (value) => {
         setEmail(value);
     }
@@ -159,22 +164,7 @@ const SignUpScreen = ({navigation}) => {
                 setShowTextFields(true);
                 setContinueButtonTitle('Agree & Join');
             } else if (count > 1) {
-                auth()
-                .createUserWithEmailAndPassword(email, password)
-                .then((createdUser) => {
-                    createdUser.user.updateProfile({
-                        displayName: userName.firstName+' '+userName.lastName
-                    }).then(() => alert('User account created & signed in!'));
-                })
-                .catch(error => {
-                    if (error.code === 'auth/email-already-in-use') {
-                        alert('That email address is already in use!');
-                    }
-
-                    if (error.code === 'auth/invalid-email') {
-                        alert('That email address is invalid!');
-                    }
-                });
+                dispatch(signUp({email: email, password: password}, userName));
             }
         }
     }
