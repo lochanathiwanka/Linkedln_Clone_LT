@@ -3,7 +3,7 @@ import {Button, Text, View} from 'react-native';
 import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from "react-redux";
-import {removeUser} from "../../../../root-stack-screen/root-stacks/sign-in-screen/redux/signInAction";
+import {removeUser} from "../../sign-in-screen/redux/signInAction";
 
 const JobsScreen = () => {
     // dispatcher

@@ -34,10 +34,10 @@ const LoaderScreen = () => {
         <View style={styles.root}>
             <StatusBar animated={true} barStyle="light-content" backgroundColor="#0e76a8"/>
             <View style={styles.imageContainer}>
-                <Image style={styles.image} source={require('../../../../../assets/images/linkedln-logo.png')}/>
+                <Image style={styles.image} source={require('../../../../assets/images/linkedln-logo.png')}/>
             </View>
             <View style={styles.progressContainer}>
-                <Image source={require('../../../../../assets/images/divider.png')}/>
+                <Image source={require('../../../../assets/images/divider.png')}/>
             </View>
         </View>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
-import SignInScreen from "../root-stacks/sign-in-screen/pages/SignInScreen";
-import SignUpScreen from "../root-stacks/sign-up-screen/pages/SignUpScreen";
+import SignInScreen from "../../stack-screens/sign-in-screen/pages/SignInScreen";
+import SignUpScreen from "../../stack-screens/sign-up-screen/pages/SignUpScreen";
 
 const RootStack = createStackNavigator();
 

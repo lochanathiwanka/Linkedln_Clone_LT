@@ -1,14 +1,14 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeStackScreen from "../root-tabs/home-stack-screen/pages/HomeStackScreen";
 import {StyleSheet, Text} from "react-native";
 import {CardStyleInterpolators} from "@react-navigation/stack";
-import PostStackScreen from "../root-tabs/post-stack-screen/pages/PostStackScreen";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MyNetworkStackScreen from "../root-tabs/my-network-stack-screen/pages/MyNetworkStackScreen";
-import NotificationsStackScreen from "../root-tabs/notifications-stack-screen/pages/NotificationsStackScreen";
-import JobsStackScreen from "../root-tabs/jobs-stack-screen/pages/JobsStackScreen";
+import HomeStackScreen from "../../stack-screens/home-stack-screen/pages/HomeStackScreen";
+import MyNetworkStackScreen from "../../stack-screens/my-network-stack-screen/pages/MyNetworkStackScreen";
+import PostStackScreen from "../../stack-screens/post-stack-screen/pages/PostStackScreen";
+import NotificationsStackScreen from "../../stack-screens/notifications-stack-screen/pages/NotificationsStackScreen";
+import JobsStackScreen from "../../stack-screens/jobs-stack-screen/pages/JobsStackScreen";
 
 const RootTab = createBottomTabNavigator();
 

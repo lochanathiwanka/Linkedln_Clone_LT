@@ -6,7 +6,7 @@ import {Checkbox} from "native-base";
 import {GoogleSignin} from "@react-native-google-signin/google-signin";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsError, signIn, signInWithGoogle} from "../redux/signInAction";
-import {AlertComp} from "../../../../../components/alert-comp/AlertComp";
+import {AlertComp} from "../../../../components/alert-comp/AlertComp";
 
 const {width, height} = Dimensions.get('window');
 
@@ -170,7 +170,7 @@ const SignInScreen = ({navigation}) => {
         <ScrollView style={{backgroundColor: 'white'}}>
             <View style={styles.root}>
                 <View style={styles.container1}>
-                    <Image style={styles.logo} source={require('../../../../../assets/images/linkedln-logo.png')}/>
+                    <Image style={styles.logo} source={require('../../../../assets/images/linkedln-logo.png')}/>
                     <Text style={styles.joinNow} onPress={() => navigation.reset({index: 0, routes: [{name: 'SignUpScreen'}]})}>Join now</Text>
                 </View>
                 <View style={styles.container2}>
@@ -212,12 +212,12 @@ const SignInScreen = ({navigation}) => {
                     </View>
                     <TouchableOpacity style={styles.signInButton} onPress={onGoogleButtonPress}>
                         <Image style={styles.buttonIcon}
-                               source={require('../../../../../assets/images/google-button.png')}/>
+                               source={require('../../../../assets/images/google-button.png')}/>
                         <Text style={styles.signInButtonText}>Sign in with Google</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.signInButton}>
                         <Image style={styles.buttonIcon}
-                               source={require('../../../../../assets/images/apple-button.png')}/>
+                               source={require('../../../../assets/images/apple-button.png')}/>
                         <Text style={styles.signInButtonText}>Sign in with Apple</Text>
                     </TouchableOpacity>
                 </View>

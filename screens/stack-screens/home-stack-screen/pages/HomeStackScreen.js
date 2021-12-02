@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import {CardStyleInterpolators, createStackNavigator} from "@react-navigation/stack";
-import HeaderComp from "../../../../../components/header-comp/HeaderComp";
 import {useSelector} from "react-redux";
+import HeaderComp from "../../../../components/header-comp/HeaderComp";
 
 const HomeScreen = ({navigation}) => {
     // selector

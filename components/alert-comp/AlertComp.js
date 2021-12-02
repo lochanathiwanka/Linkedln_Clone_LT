@@ -12,7 +12,7 @@ import {
     VStack,
 } from "native-base"
 import {useDispatch} from "react-redux";
-import {setIsError} from "../../screens/root-stack-screen/root-stacks/sign-in-screen/redux/signInAction";
+import {setIsError} from "../../screens/stack-screens/sign-in-screen/redux/signInAction";
 
 export function AlertComp({title, message, status}) {
     const [show, setShow] = React.useState(true);

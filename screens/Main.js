@@ -1,11 +1,11 @@
-import LoaderScreen from "./root-stack-screen/root-stacks/loader-screen/pages/LoaderScreen";
 import {NavigationContainer} from "@react-navigation/native";
 import RootStackScreen from "./root-stack-screen/pages/RootStackScreen";
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useDispatch, useSelector} from "react-redux";
-import {addUser} from "./root-stack-screen/root-stacks/sign-in-screen/redux/signInAction";
 import DrawerScreen from "./drawer-screen/pages/DrawerScreen";
+import LoaderScreen from "./stack-screens/loader-screen/pages/LoaderScreen";
+import {addUser} from "./stack-screens/sign-in-screen/redux/signInAction";
 
 const Main = () => {
     const [isLoading, setIsLoading] = useState(true);

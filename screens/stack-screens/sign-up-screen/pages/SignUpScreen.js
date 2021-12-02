@@ -186,7 +186,7 @@ const SignUpScreen = ({navigation}) => {
         <ScrollView style={{backgroundColor: 'white'}}>
             <View style={styles.root}>
                 <View style={styles.container1}>
-                    <Image style={styles.logo} source={require('../../../../../assets/images/linkedln-logo.png')}/>
+                    <Image style={styles.logo} source={require('../../../../assets/images/linkedln-logo.png')}/>
                 </View>
                 <View style={styles.container2}>
                     <Text style={styles.joinIn}>Join LinkedIn</Text>
@@ -257,7 +257,7 @@ const SignUpScreen = ({navigation}) => {
                             </View>
                             <TouchableOpacity style={styles.signInButton} onPress={onGoogleButtonPress}>
                                 <Image style={styles.buttonIcon}
-                                       source={require('../../../../../assets/images/google-button.png')}/>
+                                       source={require('../../../../assets/images/google-button.png')}/>
                                 <Text style={styles.signInButtonText}>Continue with Google</Text>
                             </TouchableOpacity>
                         </View>
