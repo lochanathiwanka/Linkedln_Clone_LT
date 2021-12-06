@@ -13,7 +13,6 @@ import store from "./store";
 import Main from "./screens/Main";
 
 const App: () => Node = () => {
-
     return (
         <Provider store={store}>
             <Main/>
