@@ -1,11 +1,11 @@
 import {NavigationContainer} from "@react-navigation/native";
 import RootStackScreen from "./root-stack-screen/pages/RootStackScreen";
 import React, {useEffect, useState} from 'react';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useDispatch, useSelector} from "react-redux";
 import DrawerScreen from "./drawer-screen/pages/DrawerScreen";
 import LoaderScreen from "./stack-screens/loader-screen/pages/LoaderScreen";
-import {addUser} from "./stack-screens/sign-in-screen/redux/signInAction";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {addUser, getUserInfo} from "./stack-screens/sign-in-screen/redux/signInAction";
 
 const Main = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -18,25 +18,20 @@ const Main = () => {
 
     useEffect(() => {
         getData().then((u) => {
-            dispatch(addUser(u));
-        });
-    }, []);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
+            u && dispatch(getUserInfo(u.uid));
+            u && dispatch(addUser(u));
             setIsLoading(false);
-        }, 2500);
-        return () => {
-            clearTimeout(timeout);
-        }
+        }).catch(e => {
+            console.log('useEffect: ', e);
+        });
     }, []);
 
     const getData = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem('user')
+            const jsonValue = await AsyncStorage.getItem('user');
             return jsonValue != null ? JSON.parse(jsonValue) : null;
         } catch(e) {
-            console.log(e);
+            console.log('getData: ', e);
             // error reading value
         }
     }
