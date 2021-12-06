@@ -8,3 +8,5 @@ export const ADD_USER = 'ADD_USER';
 export const ADD_USER_TRIGGER = 'ADD_USER_TRIGGER';
 export const REMOVE_USER = 'REMOVE_USER';
 export const REMOVE_USER_TRIGGER = 'REMOVE_USER_TRIGGER';
+export const ADD_USER_INFO = 'ADD_USER_INFO';
+export const GET_USER_INFO = 'GET_USER_INFO';

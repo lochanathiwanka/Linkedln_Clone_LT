@@ -163,7 +163,7 @@ const SignInScreen = ({navigation}) => {
     }
 
     async function onGoogleButtonPress() {
-        dispatch(signInWithGoogle({email: email, password: password}));
+        dispatch(signInWithGoogle());
     }
 
     return (

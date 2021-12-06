@@ -1,5 +1,6 @@
 // initial state
 import {
+    ADD_USER_INFO,
     ADD_USER_TRIGGER,
     REMOVE_USER_TRIGGER,
     SET_IS_ERROR_TRIGGER,
@@ -9,6 +10,7 @@ import {
 
 const initialState = {
     user: null,
+    info: null,
     successMessage: '',
     errorMessage: '',
     isError: false
@@ -44,6 +46,27 @@ export default function signInReducer(state = initialState, actions) {
             return {
                 ...state,
                 user: null
+            };
+        case ADD_USER_INFO:
+            return {
+                ...state,
+                info: actions.info,
+            };
+        case 'UPDATE_USER':
+            return {
+                ...state,
+                user: actions.user,
+                info: actions.info
+            };
+        case 'UPDATE_USER_INFO':
+            return {
+                ...state,
+                info: actions.info
+            };
+        case 'UPDATE_USER_PHOTO_URL':
+            return {
+                ...state,
+                user: actions.user
             };
         default:
             return initialState;

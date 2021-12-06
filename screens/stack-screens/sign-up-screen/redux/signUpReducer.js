@@ -1,10 +1,12 @@
-import {SIGN_UP_FAILURE, SIGN_UP_SUCCESS} from "./signUpActionType";
+import {SET_IS_ERROR_TRIGGER, SIGN_UP_FAILURE, SIGN_UP_SUCCESS} from "./signUpActionType";
 
 // initial state
 const initialState = {
     user: null,
+    info: null,
     successMessage: '',
-    errorMessage: ''
+    errorMessage: '',
+    isError: false
 }
 
 // reducer
@@ -14,12 +16,20 @@ export default function signUpReducer(state = initialState, actions) {
             return {
                 ...state,
                 user: actions.user,
-                successMessage: actions.message
+                info: actions.info,
+                successMessage: actions.message,
+                isError: false
             };
         case SIGN_UP_FAILURE:
             return {
                 ...state,
-                errorMessage: actions.message
+                errorMessage: actions.message,
+                isError: true
+            };
+        case SET_IS_ERROR_TRIGGER:
+            return {
+                ...state,
+                isError: actions.isError
             };
         default:
             return initialState;

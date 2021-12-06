@@ -1,6 +1,8 @@
 import {
     ADD_USER,
+    ADD_USER_INFO,
     ADD_USER_TRIGGER,
+    GET_USER_INFO,
     REMOVE_USER,
     REMOVE_USER_TRIGGER,
     SET_IS_ERROR,
@@ -18,10 +20,9 @@ export function signIn(data) {
     }
 }
 
-export function signInWithGoogle(data) {
+export function signInWithGoogle() {
     return {
-        type: SIGN_IN_WITH_GOOGLE,
-        data
+        type: SIGN_IN_WITH_GOOGLE
     }
 }
 
@@ -77,6 +78,20 @@ export function removeUser() {
 export function removeUserTrigger() {
     return {
         type: REMOVE_USER_TRIGGER
+    }
+}
+
+export function addUserInfo(info) {
+    return {
+        type: ADD_USER_INFO,
+        info
+    }
+}
+
+export function getUserInfo(uid) {
+    return {
+        type: GET_USER_INFO,
+        uid
     }
 }
 
