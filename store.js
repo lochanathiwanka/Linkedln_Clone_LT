@@ -9,7 +9,7 @@ import signUpSaga from "./screens/stack-screens/sign-up-screen/redux/signUpSaga"
 // root reducer
 const rootReducer = combineReducers({
     signInReducer,
-    signUpReducer
+    signUpReducer,
 });
 
 // saga middleware
