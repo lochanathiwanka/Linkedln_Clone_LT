@@ -8,7 +8,7 @@ export const AvatarComp = ({imageURL}) => {
                 bg="amber.500"
                 size="sm"
                 source={{
-                    uri: imageURL,
+                    uri: imageURL ? imageURL : 'https://i.ibb.co/1ZgVv1F/356-3562377-personal-user.png',
                 }}
             >
                 AK
