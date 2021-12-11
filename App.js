@@ -13,6 +13,8 @@ import store from "./store";
 import Main from "./screens/Main";
 
 const App: () => Node = () => {
+    console.disableYellowBox = true;
+
     return (
         <Provider store={store}>
             <Main/>

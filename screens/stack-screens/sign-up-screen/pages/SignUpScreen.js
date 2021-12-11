@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {TextInput} from "react-native-paper";
 import {GoogleSignin} from "@react-native-google-signin/google-signin";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,6 +7,7 @@ import {setIsError, signUp} from "../redux/signUpAction";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 import {AlertComp} from "../../../../components/alert-comp/AlertComp";
 import {signInWithGoogle} from "../../sign-in-screen/redux/signInAction";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const {width, height} = Dimensions.get('window');
 
@@ -180,6 +181,7 @@ const SignUpScreen = ({navigation}) => {
                 setContinueButtonTitle('Agree & Join');
             } else if (count > 1) {
                 dispatch(signUp({email: email, password: password}, userName));
+                navigation.reset({index: 0, routes: [{name: 'SignInScreen'}]});
             }
         }
     }
@@ -189,7 +191,8 @@ const SignUpScreen = ({navigation}) => {
     }
 
     return (
-        <ScrollView style={{backgroundColor: 'white'}}>
+        <KeyboardAwareScrollView style={{backgroundColor: 'white'}}>
+            <StatusBar animated={true} barStyle="dark-content" backgroundColor="white"/>
             <View style={styles.root}>
                 <View style={styles.container1}>
                     <Image style={styles.logo} source={require('../../../../assets/images/linkedln-logo.png')}/>
@@ -206,7 +209,7 @@ const SignUpScreen = ({navigation}) => {
                     }}>
                         <Text style={{fontSize: 18, fontWeight: '600'}}>or</Text>
                         <Text onPress={() => navigation.reset({index: 0, routes: [{name: 'SignInScreen'}]})}
-                              style={{fontSize: 18, fontWeight: '600', color: '#0e76a8'}}>sign in</Text>
+                              style={{fontSize: 18, fontWeight: '600', color: '#0e76a8', marginLeft: 5}}>sign in</Text>
                     </View>
                 </View>
                 <View style={styles.container3}>
@@ -277,7 +280,7 @@ const SignUpScreen = ({navigation}) => {
                     </View>
                 )}
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 

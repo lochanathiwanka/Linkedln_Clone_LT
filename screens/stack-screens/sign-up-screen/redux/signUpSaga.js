@@ -63,12 +63,13 @@ function addUserInfo(info) {
         });
 }
 
-function getSignedUserOBJ(uid, name, email, photoURL) {
+function getSignedUserOBJ(uid, name, email, photoURL, coverPhoto) {
     return {
         uid: uid,
         name: name,
         email: email,
-        photoURL: photoURL
+        photoURL: photoURL,
+        coverPhoto: coverPhoto
     }
 }
 
@@ -92,7 +93,7 @@ function getInfoOBJ(uid, firstName, lastName) {
         birthday: '',
         connections: 0,
         about: 'About you',
-        profileURL: ''
+        profileURL: 'https://i.ibb.co/1ZgVv1F/356-3562377-personal-user.png'
     }
 }
 
@@ -102,7 +103,7 @@ function* signUpCaller(action) {
         const user = yield call(userSignUp, action.data.email, action.data.password, action.userName);
 
         // add signed user to "users" collection
-        const createdUser = getSignedUserOBJ(user.user.uid, action.userName.firstName+' '+action.userName.lastName, user.user.email, user.user.photoURL);
+        const createdUser = getSignedUserOBJ(user.user.uid, action.userName.firstName+' '+action.userName.lastName, user.user.email, 'https://i.ibb.co/1ZgVv1F/356-3562377-personal-user.png', 'https://i.ibb.co/1ZgVv1F/356-3562377-personal-user.png');
 
         // user info
         const info = getInfoOBJ(user.user.uid, action.userName.firstName, action.userName.lastName);

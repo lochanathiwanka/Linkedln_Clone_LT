@@ -96,7 +96,7 @@ function getInfoOBJ(uid, firstName, lastName) {
         birthday: '',
         connections: 0,
         about: 'About you',
-        profileURL: ''
+        profileURL: 'https://i.ibb.co/1ZgVv1F/356-3562377-personal-user.png'
     }
 }
 
@@ -117,8 +117,11 @@ function* signInCaller(action) {
         // user sign in
         const user = yield call(userSignIn, action.data.email, action.data.password);
 
+        // get user
+        const existUser = yield call(getUser, user.user.uid);
+
         // add signed user to "users" collection
-        const signedUser = getSignedUserOBJ(user.user.uid, user.user.displayName, user.user.email, user.user.photoURL, null);
+        const signedUser = getSignedUserOBJ(user.user.uid, user.user.displayName, user.user.email, existUser._data.photoURL, existUser._data.coverPhoto);
 
         if (user) {
             const info = yield call(getUserInfo, user.user.uid);
@@ -140,7 +143,7 @@ function* signInWithGoogleCaller() {
 
         if (!checkUserExists._exists) {
             // add signed user to "users" collection
-            const signedUser = getSignedUserOBJ(user.user.uid, user.user.displayName, user.user.email, user.user.photoURL, null);
+            const signedUser = getSignedUserOBJ(user.user.uid, user.user.displayName, user.user.email, user.user.photoURL, 'https://i.ibb.co/1ZgVv1F/356-3562377-personal-user.png');
 
             // user info
             const userName = signedUser.name.split(' ');

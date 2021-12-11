@@ -2,10 +2,14 @@ import React from 'react'
 import {StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer'
 import {Avatar, Drawer, Text, Title} from 'react-native-paper'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import auth from "@react-native-firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {removeUser} from "../../../stack-screens/sign-in-screen/redux/signInAction";
 
 const styles = StyleSheet.create({
     drawerContent: {
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
     userInfoSection: {
         paddingLeft: 20,
         paddingBottom: 10,
-        backgroundColor: '#e4e7ee'
+        backgroundColor: '#f6f3ea'
     },
     title: {
         fontSize: 16,
@@ -56,9 +60,24 @@ const styles = StyleSheet.create({
 });
 
 export default function DrawerContent(props) {
-
     // selector
     const user = useSelector(state => state.signInReducer.user);
+
+    // dispatcher
+    const dispatch = useDispatch();
+
+    const removeValue = async () => {
+        try {
+            auth()
+                .signOut()
+                .then(() => console.log('User signed out!'));
+            await AsyncStorage.removeItem('user');
+            dispatch(removeUser());
+        } catch(e) {
+            console.log(e);
+            // remove error
+        }
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -78,7 +97,7 @@ export default function DrawerContent(props) {
                                         <TouchableOpacity onPress={() => props.navigation.navigate('UserInfo')}>
                                             <Title style={{fontSize: 15, fontWeight: 'bold', color: '#0e76a8'}}>View Profile</Title>
                                         </TouchableOpacity>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity style={{marginLeft: 6}}>
                                             <Title style={{fontSize: 15, fontWeight: 'bold', color: '#0e76a8'}}>Settings</Title>
                                         </TouchableOpacity>
                                     </View>
@@ -86,7 +105,7 @@ export default function DrawerContent(props) {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <View style={{borderTopColor: '#c7c7c7', borderTopWidth: 1, backgroundColor: '#e4e7ee', display: 'flex', flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
+                    <View style={{borderTopColor: '#c7c7c7', borderTopWidth: 1, backgroundColor: '#f6f3ea', display: 'flex', flexDirection: 'row', paddingTop: 10, paddingBottom: 10}}>
                         <FontAwesome name="square" size={20} style={{color: '#dcae5b', marginLeft: 15}}/>
                         <Text style={{fontSize: 17, fontWeight: 'bold', color: '#0e76a8', marginLeft: 20}}>Try Premium for free</Text>
                     </View>
@@ -173,6 +192,19 @@ export default function DrawerContent(props) {
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
+            <Drawer.Section style={styles.bottomDrawerSection} >
+                <DrawerItem
+                    icon={({ color, size }) => (
+                        <Icon
+                            name="exit-to-app"
+                            color={color}
+                            size={size}
+                        />
+                    )}
+                    label="Sign Out"
+                    onPress={removeValue}
+                />
+            </Drawer.Section>
         </View>
     )
 }

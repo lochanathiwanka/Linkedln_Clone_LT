@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {TextInput} from "react-native-paper";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 import {Checkbox} from "native-base";
@@ -168,6 +168,7 @@ const SignInScreen = ({navigation}) => {
 
     return (
         <ScrollView style={{backgroundColor: 'white'}}>
+            <StatusBar animated={true} barStyle="dark-content" backgroundColor="white"/>
             <View style={styles.root}>
                 <View style={styles.container1}>
                     <Image style={styles.logo} source={require('../../../../assets/images/linkedln-logo.png')}/>
@@ -185,7 +186,7 @@ const SignInScreen = ({navigation}) => {
                                right={<TextInput.Icon onPress={showPasswordHandler} forceTextInputFocus={false}
                                                       name={textIcon}/>}/>
                     <View style={{
-                        width: 215,
+                        width: 230,
                         height: 70,
                         marginLeft: 15,
                         display: 'flex',

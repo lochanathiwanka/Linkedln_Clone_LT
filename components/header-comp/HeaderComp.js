@@ -10,7 +10,8 @@ const styles= StyleSheet.create({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        backgroundColor: 'white'
     },
     avatarContainer: {
         height: 30,
@@ -25,7 +26,7 @@ const styles= StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         borderRadius: 5,
-        backgroundColor: '#e4e7ee'
+        backgroundColor: '#f4f4f8'
     },
     chatIcon: {
         right: 10,

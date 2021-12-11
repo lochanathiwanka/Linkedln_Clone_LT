@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Avatar, TextInput, Title} from "react-native-paper";
+import {ActivityIndicator, Avatar, TextInput, Title} from "react-native-paper";
 import {useDispatch, useSelector} from "react-redux";
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
@@ -14,7 +14,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Entypo from "react-native-vector-icons/Entypo";
 import firestore from "@react-native-firebase/firestore";
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     root: {
@@ -112,6 +112,8 @@ const styles = StyleSheet.create({
 });
 
 const ProfileScreen = ({navigation}) => {
+    const [isLoading, setIsLoading] = React.useState(false);
+
     // image reference
     let reference = undefined;
 
@@ -124,12 +126,11 @@ const ProfileScreen = ({navigation}) => {
 
     const openImage = async (imgType) => {
         ImagePicker.openPicker({
-            width: 300,
-            height: 400,
             cropping: true
         }).then(image => {
-            reference = storage().ref(getFileName(image.path))
+            reference = storage().ref(getFileName(image.path));
             uploadImage(image.path, imgType);
+            setIsLoading(true);
         }).catch((e) => {
             console.log(e);
         });
@@ -159,6 +160,7 @@ const ProfileScreen = ({navigation}) => {
                         type: 'UPDATE_USER_PHOTO_URL',
                         user: tempUser
                     });
+                    setIsLoading(false);
                 });
         }).catch((e) => {
             alert(e);
@@ -183,7 +185,7 @@ const ProfileScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             <View style={{flex: 15}}>
-                <KeyboardAwareScrollView style={{backgroundColor: '#f3dacf'}}>
+                <KeyboardAwareScrollView style={{backgroundColor: '#f6f3ea'}}>
                     <View style={styles.imageContainer}>
                         <View style={styles.circle}>
                             <TouchableOpacity onPress={() => openImage('photoURL')}>
@@ -298,6 +300,11 @@ const ProfileScreen = ({navigation}) => {
                     </View>
                 </KeyboardAwareScrollView>
             </View>
+            {isLoading && (
+                <View style={{position: 'absolute', backgroundColor: '#363535', width: width, height: height, display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: 0.6}}>
+                    <ActivityIndicator animating={true} color={'white'} size={50}/>
+                </View>
+            )}
         </View>
     );
 };
